@@ -1,1 +1,1 @@
-java -jar CostReportConverter.jar
+java -jar POConverterApplication.jar
