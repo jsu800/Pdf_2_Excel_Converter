@@ -1,5 +1,13 @@
 package StateMachine;
 
+/*
+ * PDF2Excel Project
+ * @author Joseph Su
+ * 
+ * State machine state references
+ * 
+ */
+
 public enum PDFKeywordState {
 	
 	RUNNING("Running"),	

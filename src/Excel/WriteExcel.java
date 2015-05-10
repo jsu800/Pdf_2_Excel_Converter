@@ -21,6 +21,14 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 import jxl.write.biff.RowsExceededException;
 
+/*
+ * PDF2Excel Project
+ * @author Joseph Su
+ * 
+ * Specific Excel I/O
+ * 
+ */
+
 public class WriteExcel {
 
 

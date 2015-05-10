@@ -7,6 +7,14 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
+/*
+ * PDF2Excel Project
+ * @author Joseph Su
+ * 
+ * PDF document reader I/O
+ * 
+ */
+
 public class PDFDocument {
 	 
 	PDDocument pd;

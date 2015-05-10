@@ -11,6 +11,13 @@ import StateMachine.PDFKeywordState;
 import Transaction.AccountObject;
 
 
+/**
+ * PDF2Excel Project
+ * @author Joseph Su
+ *
+ * Main console
+ */
+
 
 /* 
  * This is the domain-specific code. 
@@ -33,22 +40,22 @@ public class RunConverter {
 		String userSelection = "4";
 		
 		System.out.println("Running CPAS ...");
-//		
-//		while (true) {
-//			System.out.println("NOTE: for GP report generation please make sure you have the right set of reports to begin with.");
-//			System.out.println("Please select one of the following choices:");
-//			System.out.println(">> 1: VISTA");
-//			System.out.println(">> 2: GP");
-//			System.out.println(">> 3: PO");
-//			System.out.println(">> 4: CPAS");
-//			//userSelection = scanner.nextLine();
-//
-//			if (userSelection.equalsIgnoreCase("1".trim()) || userSelection.equalsIgnoreCase("2".trim()) || userSelection.equalsIgnoreCase("3".trim()) || userSelection.equalsIgnoreCase("4".trim())) {
-//				break;
-//			} else {
-//				System.out.println("Please Try Again with a Valid Numeric Choice!");
-//			}
-//		}		
+		
+		while (true) {
+			System.out.println("NOTE: for GP report generation please make sure you have the right set of reports to begin with.");
+			System.out.println("Please select one of the following choices:");
+			System.out.println(">> 1: VISTA");
+			System.out.println(">> 2: GP");
+			System.out.println(">> 3: PO");
+			System.out.println(">> 4: CPAS");
+			//userSelection = scanner.nextLine();
+
+			if (userSelection.equalsIgnoreCase("1".trim()) || userSelection.equalsIgnoreCase("2".trim()) || userSelection.equalsIgnoreCase("3".trim()) || userSelection.equalsIgnoreCase("4".trim())) {
+				break;
+			} else {
+				System.out.println("Please Try Again with a Valid Numeric Choice!");
+			}
+		}		
 				
 		RunConverter converter = new RunConverter(userSelection);
 		converter.machine = new FiniteStateMachine<PDFKeywordState>(PDFKeywordState.OFF);
@@ -107,10 +114,6 @@ public class RunConverter {
 					String input = doc.loadFile(entry);
 					
 					String fileName = entry.getName();
-					
-					//System.out.println("====================");
-					//System.out.println(input);
-					//System.out.println(entry.getName());
 					
 					if (!input.isEmpty()) {
 						retVal = machine.process(input, selection, fileName, PDFKeywordState.PARSE);

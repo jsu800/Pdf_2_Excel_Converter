@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/*
+ * PDF2Excel Project
+ * @author Joseph Su
+ * 
+ * Transactional objects, Account
+ * 
+ */
 
 public class AccountObject {
 	

@@ -4,6 +4,9 @@ import StateMachine.PDFKeywordState;
 import Transaction.AccountObject;
 
 /* 
+ * PDF2Excel Project
+ * @author Joseph Su
+ *
  * This is the default action that does nothing when State is set to OFF
  */
 public class DefaultAction extends AbstractAction<PDFKeywordState> {

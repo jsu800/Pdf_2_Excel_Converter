@@ -15,6 +15,9 @@ import Transaction.AccountObject;
 
 
 /**
+ * PDF2Excel Project
+ * @author Joseph Su
+ *
  * This class writes data into a single Excel spreadsheet
  *
  */

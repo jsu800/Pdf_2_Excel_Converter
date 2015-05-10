@@ -5,11 +5,13 @@ package Actions;
 import Transaction.AccountObject;
 
 /* 
+ * PDF2Excel Project
+ * @author Joseph Su
+ *
  * Write this using Chain of Responsibility design pattern
  * 
  * (1) set action: AbstractAction(nextAction)
  * (2) execute next state: setNext(state)
- * 
  * 
  */
 
