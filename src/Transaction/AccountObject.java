@@ -12,7 +12,10 @@ public class AccountObject {
 	String checkbookID = null;
 	String outputFileName = null;
 	String inputFileName = null;
+	String bankName = null;
 	
+	
+
 	public String getInputFileName() {
 		return inputFileName;
 	}
@@ -42,6 +45,7 @@ public class AccountObject {
 		this.outputFileName = another.getFileName();
 		this.checkbookID = another.getCheckbookID();
 		this.inputFileName = another.getInputFileName();
+		this.bankName = another.getBankName();
 		
 		Map<String, Double> map = another.getMap();
 		for (Map.Entry<String, Double> mapEntry : map.entrySet()) {			
@@ -53,6 +57,14 @@ public class AccountObject {
 			this.po_insert(entry);
 		}
  
+	}
+
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 
 

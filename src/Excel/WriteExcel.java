@@ -148,10 +148,32 @@ public class WriteExcel {
 				}
 				break;
 				
-			case 3:
-			case 4:
+			case 3: 
 				addCellView(sheet, "Input File Name           ", xIndex);
 				addCaption(sheet, xIndex++, 0, "Input File Name");	
+				break;
+				
+			case 4: 
+				addCellView(sheet, "Show Name             ", xIndex);
+				addCaption(sheet, xIndex++, 0, "Show Name");
+				
+				addCellView(sheet, "Bank             ", xIndex);
+				addCaption(sheet, xIndex++, 0, "Bank");	
+
+				addCellView(sheet, "Beginning Balance             ", xIndex);
+				addCaption(sheet, xIndex++, 0, "Beginning Balance");	
+
+				addCellView(sheet, "Outstanding Debits    ", xIndex);
+				addCaption(sheet, xIndex++, 0, "Outstanding Debits");	
+
+				addCellView(sheet, "Outstanding Credits    ", xIndex);
+				addCaption(sheet, xIndex++, 0, "Outstanding Credits");	
+
+				addCellView(sheet, "Adjusted Bank Balance    ", xIndex);
+				addCaption(sheet, xIndex++, 0, "Adjusted Bank Balance");	
+
+				addCellView(sheet, "GL Balance    ", xIndex);
+				addCaption(sheet, xIndex++, 0, "GL Balance");
 				break;
 				
 			default:
@@ -198,8 +220,7 @@ public class WriteExcel {
 					}
 					break;
 				
-				case 3: 		
-				case 4:
+				case 3: 									
 						String inputFileName = obj.getInputFileName();
 						addData(sheet, xIndex++, yIndex, inputFileName);
 						
@@ -216,6 +237,15 @@ public class WriteExcel {
 						}
 						yIndex--;
 							
+					break;
+					
+				case 4:
+					addData(sheet, xIndex++, yIndex, obj.getShowName());
+					addData(sheet, xIndex++, yIndex, obj.getBankName());
+					accountMap = obj.getMap();
+					for (Double value : accountMap.values()) {
+						addNumber(sheet, xIndex++, yIndex, value.doubleValue());					
+					}
 					break;
 					
 				default: 

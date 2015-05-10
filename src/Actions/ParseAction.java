@@ -111,10 +111,10 @@ public class ParseAction extends AbstractAction<PDFKeywordState> {
 			}
 			break;
 		case 4: 
-			endingRegEx = "\\d{4}\\s{1,}.*";
-			processCostReport(in, endingRegEx);
-			super.obj.setOutputFileName("CostReport.xls");
-			super.obj.setInputFileName(fileName);
+			processCPASShowName(in);
+			processBankName(in);
+			processAccountingNumbers(in);
+			super.obj.setOutputFileName("CPAS.xls");
 			isGoodToGo = true;
 			break;
 		default: 
@@ -126,49 +126,6 @@ public class ParseAction extends AbstractAction<PDFKeywordState> {
 		
 	}
 	
-	private void processCostReport(String in, String regex) {
-		
-		String value;
-		Pattern p;
-		Matcher m;
-		
-		p = Pattern.compile(regex);
-		m = p.matcher(in);
-		
-		while (m.find()) {
-			
-			value = m.group();
-
-			//System.out.println("++++" + value + "====");
-
-			CharSequence cs = "Detail";
-						
-			if (value != null && !value.contains(cs)) {
-				
-				String[] results = value.split("\\s{2,}");
-				
-				for (String result : results) {
-					value = result.trim();
-					
-					// Check to see if value is negative
-					
-					if (value.matches(".*[\\d]*-$")) {
-																		
-						value = "-" + value.replace("-", "");
-					}
-
-					super.obj.po_insert(value);
-										
-				}
-				
-				// adding an artificial delimiter
-				super.obj.po_insert("=");
-				
-			} 
-		}
-		
-	}
-
 	private void processMobilityProductions(String in, String regex) {
 		
 		String value;
@@ -319,13 +276,105 @@ public class ParseAction extends AbstractAction<PDFKeywordState> {
 		
 	}
 	
+	private void processAccountingNumbers(String in) {
+
+		String regex = "Difference :";		
+		for (int i=0; i<9; i++)
+			regex += "[\\n\\r]*[$,.0-9-]*"; 
+		
+		//System.out.println("regex: " + regex);
+		
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(in);
+		
+		if (m.find()) {
+			
+			String line = m.group(0);
+			line = line.replace("Difference :", "");
+			String[] numbers = line.split("\n");
+			
+//			for (String num : numbers) {
+//				System.out.println(" -- " + num);
+//			}
+			
+//			System.out.println("Beginning Balance: " + numbers[1]);
+//			System.out.println("Outstanding Debits: " + numbers[6]);
+//			System.out.println("Outstanding Credits: " + numbers[7]);
+//			System.out.println("Adjusted Bank Balance: " + numbers[3]);
+//			System.out.println("GL Balance: " + numbers[8]);
+			
+			if (numbers.length > 1)
+				insertNumber("Beginning Balance", getDouble(numbers[1]));				
+			if (numbers.length > 6)
+				insertNumber("Outstanding Debits", getDouble(numbers[6]));				
+			if (numbers.length > 7)
+				insertNumber("Outstanding Credits", getDouble(numbers[7]));	
+			if (numbers.length > 3)
+				insertNumber("Adjusted Bank Balance", getDouble(numbers[3]));				
+			if (numbers.length > 8)
+				insertNumber("GL Balance", getDouble(numbers[8]));				
+
+		}
+	}
+
+	private void insertNumber(String key, double d) {
+		super.obj.insert(key, d);						
+	}
+	
+	private void processBankName(String in) {
+
+		String regex = ".*(Bank).*:";
+		String bankName = null;
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(in);
+		
+		//System.out.println(in);
+		
+		if (m.find()) {
+			
+			String line = m.group(0);
+
+			// if the current line doesn't contain ( then we have to go back two lines up in regex
+			if (line.contains("(") == false) {
+				regex = "(.*)[\\n\\r]*(.*)[\\n\\r]*.*(Bank).*:";
+				p = Pattern.compile(regex);
+				m = p.matcher(in);
+				if (m.find()) line = m.group(0);
+			}
+						
+			bankName = line.replace("\n", "").replace("\r", "").replace("Bank :", "");
+			//System.out.println("Bank Name: " + bankName);
+			
+			super.obj.setBankName(bankName);
+		}
+	}
+	
+	private void processCPASShowName(String in) {
+
+		String regex = "(BankRec.*)[\\n\\r]*.*";
+		String showName = null;
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(in);
+		
+		//System.out.println(in);
+		
+		if (m.find()) {
+
+			String line = m.group(0);
+			showName = line.replace("BankRec", "").replace("\n", "").replace("\r", "");
+			System.out.println("Show Name: " + showName);
+			
+			super.obj.setShowName(showName);
+		}
+	}
+	
 	private  boolean isNumeric(String str)  
 	{  
 		boolean retVal = true;
 		
 		try  
 		{  
-			double d = Double.parseDouble(str);  
+			Double.parseDouble(str);  
 		}  
 		catch(NumberFormatException nfe)  
 		{  

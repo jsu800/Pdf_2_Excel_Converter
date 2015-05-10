@@ -1,7 +1,5 @@
 import java.io.File;
-import java.util.Scanner;
 
-import Transaction.AccountObject;
 import Actions.DefaultAction;
 import Actions.ExcelAction;
 import Actions.KeywordAction;
@@ -10,6 +8,7 @@ import Actions.TransitionAction;
 import PDF.PDFDocument;
 import StateMachine.FiniteStateMachine;
 import StateMachine.PDFKeywordState;
+import Transaction.AccountObject;
 
 
 
@@ -30,24 +29,26 @@ public class RunConverter {
 	public static void main(String[] args) {
 
 		// Let's get the command line user input
-		Scanner scanner = new Scanner(System.in);
-		String userSelection;
+		//Scanner scanner = new Scanner(System.in);
+		String userSelection = "4";
 		
-		while (true) {
-			System.out.println("NOTE: for GP report generation please make sure you have the right set of reports to begin with.");
-			System.out.println("Please select one of the following choices:");
-			System.out.println(">> 1: VISTA");
-			System.out.println(">> 2: GP");
-			System.out.println(">> 3: PO");
-			System.out.println(">> 4: Cost Report");
-			userSelection = scanner.nextLine();
-
-			if (userSelection.equalsIgnoreCase("1".trim()) || userSelection.equalsIgnoreCase("2".trim()) || userSelection.equalsIgnoreCase("3".trim()) || userSelection.equalsIgnoreCase("4".trim())) {
-				break;
-			} else {
-				System.out.println("Please Try Again with a Valid Numeric Choice!");
-			}
-		}		
+		System.out.println("Running CPAS ...");
+//		
+//		while (true) {
+//			System.out.println("NOTE: for GP report generation please make sure you have the right set of reports to begin with.");
+//			System.out.println("Please select one of the following choices:");
+//			System.out.println(">> 1: VISTA");
+//			System.out.println(">> 2: GP");
+//			System.out.println(">> 3: PO");
+//			System.out.println(">> 4: CPAS");
+//			//userSelection = scanner.nextLine();
+//
+//			if (userSelection.equalsIgnoreCase("1".trim()) || userSelection.equalsIgnoreCase("2".trim()) || userSelection.equalsIgnoreCase("3".trim()) || userSelection.equalsIgnoreCase("4".trim())) {
+//				break;
+//			} else {
+//				System.out.println("Please Try Again with a Valid Numeric Choice!");
+//			}
+//		}		
 				
 		RunConverter converter = new RunConverter(userSelection);
 		converter.machine = new FiniteStateMachine<PDFKeywordState>(PDFKeywordState.OFF);
