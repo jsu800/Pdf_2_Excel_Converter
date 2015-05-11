@@ -1,8 +1,11 @@
-Pdf_2_Excel_Converter
-=====================
+##PDF-Excel Converter
 
-This application uses the PDF parser framework and Excel parser library to I/O data from PDF to Excel, and
-vice versa, for bookkeeping and finance purposes.
+This application uses the following frameworks
 
+* PDF parser framework
+* [Java Excel API](http://jexcelapi.sourceforge.net): parser library to I/O data 
 
+I/O for PDF to Excel, and vice versa, for bookkeeping and finance purposes.
+
+##Patterns
 FSM pattern. Async I/O. Regex. 
